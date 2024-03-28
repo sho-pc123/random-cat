@@ -1,7 +1,16 @@
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 
 const IndexPage: NextPage = () => {
-  return <div>猫画像予定地</div>
+  const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoding] = useState(true);
+  useEffect(() => {
+    fetchImage().then((newImage) => {
+      setImageUrl(newImage.url);
+      setLoding(false);
+    })
+  }, []);
+  return <div>{ loading || <img src={imageUrl}/> }</div>;
 }
 
 export default IndexPage;
